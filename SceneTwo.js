@@ -35,11 +35,11 @@ class SceneOne extends Phaser.Scene{
 
         player = this.physics.add.sprite(300, 300, 'player');
 
-        Hearth1 = this.add.sprite(50,50, 'Hearth');
-        Hearth2 = this.add.sprite(50,50, 'Hearth');
-        Hearth3 = this.add.sprite(50,50, 'Hearth');
-        Hearth4 = this.add.sprite(50,50, 'Hearth');
-        Hearth5 = this.add.sprite(50,50, 'Hearth');
+        _Hearth1 = this.add.sprite(50,50, 'Hearth');
+        _Hearth2 = this.add.sprite(50,50, 'Hearth');
+        _Hearth3 = this.add.sprite(50,50, 'Hearth');
+        _Hearth4 = this.add.sprite(50,50, 'Hearth');
+        _Hearth5 = this.add.sprite(50,50, 'Hearth');
 
         Empty_Hearth1 = this.add.sprite(50,50, 'Hearth').setvisible(false);
         Empty_Hearth2 = this.add.sprite(50,50, 'Hearth').setvisible(false);
@@ -47,7 +47,7 @@ class SceneOne extends Phaser.Scene{
         Empty_Hearth4 = this.add.sprite(50,50, 'Hearth').setvisible(false);
         Empty_Hearth5 = this.add.sprite(50,50, 'Hearth').setvisible(false);
 
-        Coin_icon = this.add.sprite(350,50,'coin').setScale(0.5);
+        _Coin_icon = this.add.sprite(350,50,'coin').setScale(0.5);
 
         items = this.physics.add.group();
 
@@ -56,7 +56,7 @@ class SceneOne extends Phaser.Scene{
         coins = this.physics.add.group({
             setScrollFactor : 0
         });
-        Coins_account = this.add.text(370,540, Bank,{fonySize: '35px', fill: '#FFFFFF'}).setScrollFactor(0);
+        _Coins_account = this.add.text(370,540, _Bank,{fonySize: '35px', fill: '#FFFFFF'}).setScrollFactor(0);
 
         attack = this.physics.add.group();
 
@@ -137,15 +137,15 @@ class SceneOne extends Phaser.Scene{
         };
 
         function CollectMoulaga(player,coin){
-            if (Collect){
-                Coins_account = Coins_account +1;
+            if (_Collect){
+                _Coins_account = _Coins_account +1;
                 coin.destroy();
             }
         }
 
         function hitOnPlayer(player,ennemis){
             if( invincible == false){
-                Hp_player = Hp_player -1;
+                _Hp_player = _Hp_player -1;
                 invincible = true;
                 setTimeout(function(){invincible = false},900);
             }
@@ -164,20 +164,20 @@ class SceneOne extends Phaser.Scene{
         //Spell de soins
         function GetHealed(player,_Hp_player){
             if(_Heal_possible == true){
-                _Hp_player = Hp_player + 1;
+                _Hp_player = _Hp_player + 1;
                 if (_Hp_player == 1){
                     _Empty_Hearth2.setVisible(false);
                     _Hearth2.setVisible(true);
                 }
-                else if (Hp_player == 2){
+                else if (_Hp_player == 2){
                     _Empty_Hearth3.setVisible(false);
                     _Hearth3.setVisible(true);
                 }
-                else if (Hp_player == 3){
+                else if (_Hp_player == 3){
                     _Empty_Hearth4.setVisible(false);
                     _Hearth4.setVisible(true);
                 }
-                else if (Hp_player == 4){
+                else if (_Hp_player == 4){
                     _Empty_Hearth5.setVisible(false);
                     _Hearth5.setVisible(true);
                 }
@@ -266,65 +266,65 @@ if (moving == true){
     moving = false; 
 }
 
-if (Hp_player == 4){
-    Hearth5.setVisible(false);
-    Empty_Hearth5.setVisible(true);
+if (_Hp_player == 4){
+    _Hearth5.setVisible(false);
+    _Empty_Hearth5.setVisible(true);
 }
-else if (Hp_player == 3){
-    Hearth5.setVisible(false);
-    Empty_Hearth5.setVisible(true);
-    Hearth4.setVisible(false);
-    Empty_Hearth4.setVisible(true);
+else if (_Hp_player == 3){
+    _Hearth5.setVisible(false);
+    _Empty_Hearth5.setVisible(true);
+    _Hearth4.setVisible(false);
+    _Empty_Hearth4.setVisible(true);
 }
-else if (Hp_player == 2){
-    Hearth5.setVisible(false);
-    Empty_Hearth5.setVisible(true);
-    Hearth4.setVisible(false);
-    Empty_Hearth4.setVisible(true);
-    Hearth3.setVisible(false);
-    Empty_Hearth3.setVisible(true);
+else if (_Hp_player == 2){
+    _Hearth5.setVisible(false);
+    _Empty_Hearth5.setVisible(true);
+    _Hearth4.setVisible(false);
+    _Empty_Hearth4.setVisible(true);
+    _Hearth3.setVisible(false);
+    _Empty_Hearth3.setVisible(true);
 }
-else if (Hp_player == 1){
-    Hearth5.setVisible(false);
-    Empty_Hearth5.setVisible(true);
-    Hearth4.setVisible(false);
-    Empty_Hearth4.setVisible(true);
-    Hearth3.setVisible(false);
-    Empty_Hearth3.setVisible(true);
-    Hearth2.setVisible(false);
-    Empty_Hearth2.setVisible(true);  
+else if (_Hp_player == 1){
+    _Hearth5.setVisible(false);
+    _Empty_Hearth5.setVisible(true);
+    _Hearth4.setVisible(false);
+    _Empty_Hearth4.setVisible(true);
+    _Hearth3.setVisible(false);
+    _Empty_Hearth3.setVisible(true);
+    _Hearth2.setVisible(false);
+    _Empty_Hearth2.setVisible(true);  
 }
-else if (Hp_player == 0){
-    Hearth5.setVisible(false);
-    Empty_Hearth5.setVisible(true);
-    Hearth4.setVisible(false);
-    Empty_Hearth4.setVisible(true);
-    Hearth3.setVisible(false);
-    Empty_Hearth3.setVisible(true);
-    Hearth2.setVisible(false);
-    Empty_Hearth2.setVisible(true); 
-    Hearth1.setVisible(false);
-    Empty_Hearth1.setVisible(true);   
+else if (_Hp_player == 0){
+    _Hearth5.setVisible(false);
+    _Empty_Hearth5.setVisible(true);
+    _Hearth4.setVisible(false);
+    _Empty_Hearth4.setVisible(true);
+    _Hearth3.setVisible(false);
+    _Empty_Hearth3.setVisible(true);
+    _Hearth2.setVisible(false);
+    _Empty_Hearth2.setVisible(true); 
+    _Hearth1.setVisible(false);
+    _Empty_Hearth1.setVisible(true);   
 }
 
-Coins_account.setText(Bank);
-if (Heal_possible){
+_Coins_account.setText(_Bank);
+if (_Heal_possible){
     if (padConnected){
-        if (keys.shift.isDown && !Healed || paddle.B && !Healed){
-            Hp_player.GetHealed();
+        if (keys.shift.isDown && !_Healed || paddle.B && !_Healed){
+            _Hp_player.GetHealed();
             setTimeout(function(){GetHealed() = 1}, 1500);
         }
         if (keys.shift.isUp && !paddle.B){
-            Healed = false;
+            _Healed = false;
         }
     }
     if (padConnected){
-        if (keys.shift.isDown && !Healed || paddle.B && !Healed){
-            Hp_player.GetHealed();
-            setTimeout(function(){GetHealed = 1}, 1500);
+        if (keys.shift.isDown && !_Healed || paddle.B && !_Healed){
+            _Hp_player.GetHealed();
+            setTimeout(function(){GetHealed() = 1}, 1500);
     }
     if (keys.shift.isUp){
-        Healed = false;
+        _Healed = false;
     }
 }
 };

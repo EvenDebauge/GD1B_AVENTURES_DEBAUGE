@@ -93,22 +93,22 @@ class SceneOne extends Phaser.Scene{
         //sprites d'anim joueur
         player = this.physics.add.sprite(300, 300, 'player');
 
-        Hearth1 = this.add.sprite(50,50, 'Hearth');
-        Hearth2 = this.add.sprite(50,50, 'Hearth');
-        Hearth3 = this.add.sprite(50,50, 'Hearth');
-        Hearth4 = this.add.sprite(50,50, 'Hearth');
-        Hearth5 = this.add.sprite(50,50, 'Hearth');
+        _Hearth1 = this.add.sprite(50,50, 'Hearth');
+        _Hearth2 = this.add.sprite(50,50, 'Hearth');
+        _Hearth3 = this.add.sprite(50,50, 'Hearth');
+        _Hearth4 = this.add.sprite(50,50, 'Hearth');
+        _Hearth5 = this.add.sprite(50,50, 'Hearth');
+_
+        _Empty_Hearth1 = this.add.sprite(50,50, 'Hearth').setvisible(false);
+        _Empty_Hearth2 = this.add.sprite(50,50, 'Hearth').setvisible(false);
+        _Empty_Hearth3 = this.add.sprite(50,50, 'Hearth').setvisible(false);
+        _Empty_Hearth4 = this.add.sprite(50,50, 'Hearth').setvisible(false);
+        _Empty_Hearth5 = this.add.sprite(50,50, 'Hearth').setvisible(false);
 
-        Empty_Hearth1 = this.add.sprite(50,50, 'Hearth').setvisible(false);
-        Empty_Hearth2 = this.add.sprite(50,50, 'Hearth').setvisible(false);
-        Empty_Hearth3 = this.add.sprite(50,50, 'Hearth').setvisible(false);
-        Empty_Hearth4 = this.add.sprite(50,50, 'Hearth').setvisible(false);
-        Empty_Hearth5 = this.add.sprite(50,50, 'Hearth').setvisible(false);
-
-        Coin_icon = this.add.sprite(350,50,'coin').setScale(0.5);
-        Coin_icon.setScrollFactor(0);
-
-        Coins_account = this.add.text(370,540, Bank,{fonySize: '35px', fill: '#FFFFFF'}).setScrollFactor(0);
+        _Coin_icon = this.add.sprite(350,50,'coin').setScale(0.5);
+        _Coin_icon.setScrollFactor(0);
+_
+        _Coins_account = this.add.text(370,540, _Bank,{fonySize: '35px', fill: '#FFFFFF'}).setScrollFactor(0);
 
         attack = this.physics.add.group();
 
@@ -119,12 +119,12 @@ class SceneOne extends Phaser.Scene{
         }
         sword_icon.setVisible(false);
 
-        Heal_icon = this.physics.add.sprite(150,700, 'Heal');
-        Heal_icon.setScale(1.5);
-        if (!Heal_possible){
-            Heal_icon.setvisible(false);
+        _Heal_icon = this.physics.add.sprite(150,700, 'Heal');
+        _Heal_icon.setScale(1.5);
+        if (!_Heal_possible){
+            _Heal_icon.setvisible(false);
         }
-        Heal_icon.setScrollFactor(0);
+        _Heal_icon.setScrollFactor(0);
 
         //collisions .
         this.physics.add.collider(player, bloquant);
@@ -241,17 +241,17 @@ class SceneOne extends Phaser.Scene{
             moving = false; 
         }
 
-        if (Hp_player == 4){
+        if (_Hp_player == 4){
             _Hearth5.setVisible(false);
             _Empty_Hearth5.setVisible(true);
         }
-        else if (Hp_player == 3){
+        else if (_Hp_player == 3){
             _Hearth5.setVisible(false);
             _Empty_Hearth5.setVisible(true);
             _Hearth4.setVisible(false);
             _Empty_Hearth4.setVisible(true);
         }
-        else if (Hp_player == 2){
+        else if (_Hp_player == 2){
             _Hearth5.setVisible(false);
             _Empty_Hearth5.setVisible(true);
             _Hearth4.setVisible(false);
@@ -259,7 +259,7 @@ class SceneOne extends Phaser.Scene{
             _Hearth3.setVisible(false);
             _Empty_Hearth3.setVisible(true);
         }
-        else if (Hp_player == 1){
+        else if (_Hp_player == 1){
             _Hearth5.setVisible(false);
             _Empty_Hearth5.setVisible(true);
             _Hearth4.setVisible(false);
@@ -269,7 +269,7 @@ class SceneOne extends Phaser.Scene{
             _Hearth2.setVisible(false);
             _Empty_Hearth2.setVisible(true);  
         }
-        else if (Hp_player == 0){
+        else if (_Hp_player == 0){
             _Hearth5.setVisible(false);
             _Empty_Hearth5.setVisible(true);
             _Hearth4.setVisible(false);
@@ -282,7 +282,7 @@ class SceneOne extends Phaser.Scene{
             _Empty_Hearth1.setVisible(true);   
         }
 
-        _Coins_account.setText(Bank);
+        _Coins_account.setText(_Bank);
         if (_Heal_possible){
             if (padConnected){
                 if (keys.shift.isDown && !_Healed || paddle.B && !_Healed){
