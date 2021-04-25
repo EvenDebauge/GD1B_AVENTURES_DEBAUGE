@@ -145,6 +145,12 @@ class SceneOne extends Phaser.Scene{
                 .setPosition(item.x+32, item.y-32)
                 .setScale(1)
         }
+
+        for (const passage_bas of itemObjects){
+            passage_bas.create(item.x, item.y, 'Passage_Bas')
+                .setPosition(item.x+32, item.y-32)
+                .setScale(1)
+        }
    
 
        
