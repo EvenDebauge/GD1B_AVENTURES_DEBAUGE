@@ -3,6 +3,7 @@ var ennemis;
 var items;
 var walls;
 var keys;
+var block_decors;
 
 var gamepad;
 var paddle;
@@ -67,22 +68,40 @@ class SceneOne extends Phaser.Scene{
     preload(){
 
         this.load.image('passage_bas','assets/01_decors/block_decors-assets/passage_zone_01.png')
-        this.load.image('tiles','assets/images/spikes.png');//load des piques en Assets
-        this.load.image('tiles','assets/images/player.png','assets/images/kenny.player.json');//Load du perso et de son spritesheet
-        this.load.image('tiles','assets/tilesets/platformPack_tilesheet.png');//Load du jeu de tuile de Tiles dans phaser
-        this.load.image('map','assets/tilemaps/level1.json');//load de la map à partir de Tiles
+        this.load.image('Ennemis','assets/images/Ennemi.png');
+        this.load.image('Hearth','assets/images/Hearth.png');
+        this.load.image('Empty_Hearth','assets/images/Empty_Hearth.png');
+        this.load.image('Heal','assets/images/Heal.png');
+        this.load.image('Sword','assets/images/Sword.png');
+        this.load.image('Coffre','assets/images/Chest.png');
+        this.load.image('georges_left','assets/spritesheet/georges_left.png');
+        this.load.image('georges_right','assets/spritesheet/georges_right.png');
+        this.load.image('georges_up','assets/spritesheet/georges_up.png');
+        this.load.image('georges_down','assets/spritesheet/georges_down.png');
+        this.load.image('Sword_slash_left','assets/spritesheet/Sword_slash_gauche.png');
+        this.load.image('Sword_slash_right','assets/spritesheet/Sword_slash_droite.png');
+        this.load.image('Sword_slash_up','assets/spritesheet/Sword_slash_haut.png');
+        this.load.image('Sword_slash_down','assets/spritesheet/Sword_slash_bas.png');
+        this.load.image('Plateformes','assets/images/george.png');//Load du perso et de son spritesheet
+        this.load.image('PathAndObjects','assets/tilesets/platformPack_tilesheet.png');
+        this.load.image('ui','assets/tilesets/platformPack_tilesheet.png');//Load du jeu de tuile de Tiles dans phaser
+        this.load.image('Essai','assets/tilemaps/level1.json');//load de la map à partir de Tiles
     }
     create(){
 
         
-        const backgroundImage = this.add.image(0, 0,'background').setOrigin(0, 0); //background affiché dans Phaser
-        backgroundImage.setScale(2, 0.8);//Remise à l échelle du Background
+        /*/const backgroundImage = this.add.image(0, 0,'background').setOrigin(0, 0); //background affiché dans Phaser
+        backgroundImage.setScale(2, 0.8);//Remise à l échelle du Background*/
 
-        const map = this.make.tilemap({ key: 'map' });//ajout de la map dans Phaser, visible
+        const map = this.make.tilemap({ key: 'Essai' });//ajout de la map dans Phaser, visible
 
-        const tileset = map.addTilesetImage('kenney_simple_platformer', 'tiles');//Rendre les objets dans la map de Tiles Visible dans Phaser.
+        const tileset = map.addTilesetImage('Item_Epee', 'tiles');
+        const tileset = map.addTilesetImage('Item_Heal', 'tiles');
+        const tileset = map.addTilesetImage('Coffres', 'tiles');
+        const tileset = map.addTilesetImage('Passage_bas', 'tiles');//Rendre les objets dans la map de Tiles Visible dans Phaser.
 
-        const platforms = map.createStaticLayer('Platforms', tileset, 0, 200);//ajout de la visibilité des plateformes dans Phaser
+        const platforms = map.createStaticLayer('Plateformes', tileset, 0, 200);//ajout de la visibilité des plateformes dans Phaser
+        const block_decors = map.createStaticLayer('Décors', tileset, 0, 200);//ajout de la visibilité des plateformes dans Phaser
         
         this.add.image(0,0,'scene_01').setOrigin(0).setScrollFactor(0);
         passage_bas = this.physics.add.sprite(580, 700, 'passage_bas');
@@ -107,8 +126,29 @@ _
 
         _Coin_icon = this.add.sprite(350,50,'coin').setScale(0.5);
         _Coin_icon.setScrollFactor(0);
-_
-        _Coins_account = this.add.text(370,540, _Bank,{fonySize: '35px', fill: '#FFFFFF'}).setScrollFactor(0);
+
+        _Coins_account = this.add.text(370,540, _Bank,{fontSize: '35px', fill: '#FFFFFF'}).setScrollFactor(0);
+
+        for (const item of itemObjects){
+            items.create(item.x, item.y, 'Coffre')
+                .setPosition(item.x+32, item.y-32)
+                .setScale(1)
+        }
+        for (const _Ennemi of itemObjects){
+            _Ennemi.create(item.x, item.y, 'Ennemi')
+                .setPosition(item.x+32, item.y-32)
+                .setScale(1)
+        }
+        for (const Item_Heal of itemObjects){
+            Item_Heal.create(item.x, item.y, 'Heal')
+                .setPosition(item.x+32, item.y-32)
+                .setScale(1)
+        }
+        for (const Item_Epee of itemObjects){
+            Item_Epee.create(item.x, item.y, 'Sword')
+                .setPosition(item.x+32, item.y-32)
+                .setScale(1)
+        }
 
         attack = this.physics.add.group();
 
@@ -164,50 +204,50 @@ _
         //animation Joueur
         this.anims.create({
             key:"right",
-            frames: this.anim.generateFrameNumbers ('player',{start:1,end:1}),
+            frames: this.anim.generateFrameNumbers ('george_right',{start:1,end:1}),
             frameRate : 10,
             repeat: -1
         });
         this.anims.create({
             key:"left",
-            frames: this.anim.generateFrameNumbers ('player',{start:2,end:2}),
+            frames: this.anim.generateFrameNumbers ('george_left',{start:2,end:2}),
             frameRate : 10,
             repeat: -1
         });
         this.anims.create({
             key:"up",
-            frames: this.anim.generateFrameNumbers ('player',{start:0,end:0}),
+            frames: this.anim.generateFrameNumbers ('george_up',{start:0,end:0}),
             frameRate : 10,
             repeat: -1
         });
         this.anims.create({
             key:"down",
-            frames: this.anim.generateFrameNumbers ('player',{start:3,end:3}),
+            frames: this.anim.generateFrameNumbers ('george_down',{start:3,end:3}),
             frameRate : 10,
             repeat: -1
         });
 
         this.anims.create({
             key:"attack_right",
-            frames: this.anim.generateFrameNumbers ('player',{start:1,end:1}),
+            frames: this.anim.generateFrameNumbers ('Sword_slash_right',{start:1,end:1}),
             frameRate : 10,
             repeat: -1
         });
         this.anims.create({
             key:"attack_left",
-            frames: this.anim.generateFrameNumbers ('player',{start:2,end:2}),
+            frames: this.anim.generateFrameNumbers ('Sword_slash_left',{start:2,end:2}),
             frameRate : 10,
             repeat: -1
         });
         this.anims.create({
             key:"attack_up",
-            frames: this.anim.generateFrameNumbers ('player',{start:0,end:0}),
+            frames: this.anim.generateFrameNumbers ('Sword_slash_up',{start:0,end:0}),
             frameRate : 10,
             repeat: -1
         });
         this.anims.create({
             key:"attack_down",
-            frames: this.anim.generateFrameNumbers ('player',{start:3,end:3}),
+            frames: this.anim.generateFrameNumbers ('Sword_slash_down',{start:3,end:3}),
             frameRate : 10,
             repeat: -1
         });
@@ -337,22 +377,22 @@ _
         
         if (paddle.right || keys.right.isDown){
             player.setVelocityX(250);
-            player.anims.play('right',true);
+            player.anims.play('george_right',true);
         }
         else if (paddle.left || keys.left.isDown){
             player.setVelocityX(-250);
-            player.anims.play('left',true);
+            player.anims.play('george_left',true);
         }
         else if ( !paddle.right && !paddle.left || keys.right.isUp && keys.left.isUp){
             player.setVelocityX(0);
         }
         else if (paddle.up || keys.up.isDown){
             player.setVelocityY(250);
-            player.anims.play('up',true);
+            player.anims.play('george_up',true);
         }
         else if (paddle.down || keys.down.isDown){
             player.setVelocityY(-250);
-            player.anims.play('down',true);
+            player.anims.play('george_down',true);
         }
         else if ( !paddle.up && !paddle.down || keys.up.isUp && keys.down.isUp){
             player.setVelocityY(0);
@@ -365,22 +405,22 @@ _
         if (!padConnected){
             if (keys.right.isDown){
                 player.setVelocityX(250);
-                player.anims.play('right',true);
+                player.anims.play('george_right',true);
             }
             else if (keys.left.isDown){
                 player.setVelocityX(-250);
-                player.anims.play('left',true);
+                player.anims.play('george_left',true);
             }
             else if (keys.right.isUp && keys.left.isUp){
                 player.setVelocityX(0);
             }
             else if (keys.up.isDown){
                 player.setVelocityY(250);
-                player.anims.play('up',true);
+                player.anims.play('george_up',true);
             }
             else if (keys.down.isDown){
                 player.setVelocityY(-250);
-                player.anims.play('down',true);
+                player.anims.play('george_down',true);
             }
             else if (keys.up.isUp && keys.down.isUp){
                 player.setVelocityY(0);
@@ -389,7 +429,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_right',true);
+                new_attack.anims.play('Sword_slash_right',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
@@ -397,7 +437,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_left',true);
+                new_attack.anims.play('Sword_slash_left',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
@@ -405,7 +445,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_up',true);
+                new_attack.anims.play('Sword_slash_up',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
@@ -413,7 +453,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_down',true);
+                new_attack.anims.play('Sword_slash_down',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
@@ -424,22 +464,22 @@ _
 
             if(paddle.right || keys.right.isDown){
                 player.setVelocityX(250);
-                player.anims.play('right', true);
+                player.anims.play('george_right', true);
             }
             else if(paddle.left || keys.left.isDown){
                 player.setVelocityX(-250);
-                player.anims.play('left', true);
+                player.anims.play('george_left', true);
             }
             else if (!paddle.right && !paddle.left && keys.right.isUp && keys.left.isUp){
                 player.setVelocity(0);
             }
             else if(paddle.up|| keys.up.isDown){
                 player.setVelocityY(250);
-                player.anims.play('up', true);
+                player.anims.play('george_up', true);
             }
             else if(paddle.down|| keys.down.isDown){
                 player.setVelocityY(-250);
-                player.anims.play('down', true);
+                player.anims.play('george_down', true);
             }
             else if (!paddle.up && !paddle.down && keys.up.isUp && keys.down.isUp){
                 player.setVelocity(0);
@@ -449,7 +489,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_left',true);
+                new_attack.anims.play('Sword_slash_left',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
@@ -457,7 +497,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_right',true);
+                new_attack.anims.play('Sword_slash_right',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
@@ -465,7 +505,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_up',true);
+                new_attack.anims.play('Sword_slash_up',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
@@ -473,7 +513,7 @@ _
                 attack_possible = false;
                 player.setvelocity(0);
                 attaque(32,0);
-                new_attack.anims.play('attack_down',true);
+                new_attack.anims.play('Sword_slash_down',true);
                 setTimeout(function(){new_attack.destroy()},200);
                 setTimeout(function(){attack_possible = true},200);
             }
